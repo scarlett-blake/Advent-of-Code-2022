@@ -1,0 +1,23 @@
+# Fdb version 3
+["xdvipdfmx"] 1669901925 "main.xdv" "main.pdf" "main" 1669901925
+  "main.xdv" 1669901925 3562088 39505a69d92f58da0a23653fcb630613 "xelatex"
+  (generated)
+  "main.pdf"
+["xelatex"] 1669901901 "main.tex" "main.xdv" "main" 1669901925
+  "/home/blake/.local/share/texlive/2022/texmf-dist/tex/latex/base/article.cls" 1654720880 20144 7555b7429d80bef287ebb82117811acc ""
+  "/home/blake/.local/share/texlive/2022/texmf-dist/tex/latex/base/size10.clo" 1654720880 8448 e0391042ca0932ede1098ae14ada60ba ""
+  "/home/blake/.local/share/texlive/2022/texmf-dist/tex/latex/base/ts1cmr.fd" 1654720880 2430 c6a3607a0ca42997f8ce16be1678d411 ""
+  "/home/blake/.local/share/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-xetex.def" 1659816811 32625 d2f9cd6d18e5026a959dfd302fe6f80e ""
+  "/home/blake/.local/share/texlive/2022/texmf-dist/tex/latex/l3kernel/expl3.sty" 1659816811 6107 910b8427e3ebba60ecd048f9f672c6ae ""
+  "/home/blake/.local/share/texlive/2022/texmf-dist/tex/latex/l3packages/xparse/xparse.sty" 1656017767 6812 d2f733947d73940b228845829d585700 ""
+  "/home/blake/.local/share/texlive/2022/texmf-dist/tex/plain/base/list.tex" 1137109606 1581 477ec0ff1935ee7bece87534a5b0c9b7 ""
+  "/home/blake/.local/share/texlive/2022/texmf-dist/web2c/texmf.cnf" 1646502317 40171 cdab547de63d26590bebb3baff566530 ""
+  "/home/blake/.local/share/texlive/2022/texmf-var/web2c/xetex/xelatex.fmt" 1660725229 5463098 3c3549002ed3953a1de100c1c8712c9a ""
+  "/home/blake/.local/share/texlive/2022/texmf.cnf" 1657814516 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
+  "list" 1669901219 10454 ae11a75c1a33bec1ed0617fe223a0053 ""
+  "main.aux" 1669901925 594 ea476ceec2671e1b8c9b96a96acc4b12 "xelatex"
+  "main.tex" 1669901875 5415 6186dee02b19275e2f6b2d16650b96b0 ""
+  (generated)
+  "main.aux"
+  "main.log"
+  "main.xdv"

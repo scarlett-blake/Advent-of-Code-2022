@@ -1,0 +1,132 @@
+\documentclass[]{article}
+
+\usepackage[]{expl3}
+\usepackage[]{xparse}
+
+\begin{document}
+    
+  \section{Day one, Calorie Counting}
+
+    \subsection{Predicament}
+
+      Santa's reindeer typically eat regular reindeer food, but they need a lot of magical energy to deliver presents on Christmas. For that, their favorite snack is a special type of star fruit that only grows deep in the jungle. The Elves have brought you on their annual expedition to the grove where the fruit grows.
+
+      To supply enough magical energy, the expedition needs to retrieve a minimum of fifty stars by December 25th. Although the Elves assure you that the grove has plenty of fruit, you decide to grab any fruit you see along the way, just in case.
+
+      The jungle must be too overgrown and difficult to navigate in vehicles or access from the air; the Elves' expedition traditionally goes on foot. As your boats approach land, the Elves begin taking inventory of their supplies. One important consideration is food - in particular, the number of Calories each Elf is carrying.
+
+      The Elves take turns writing down the number of Calories contained by the various meals, snacks, rations, etc. that they've brought with them, one item per line. Each Elf separates their own inventory from the previous Elf's inventory (if any) by a blank line.
+
+    \subsection{The code}
+
+      Not too deep under this section, hidden in the background, resides the code which does the counting. After it runs, its results will be shown in section \ref{results}. The following text in this section is textual output of the code as it runs.
+
+      \subsubsection{Code output}
+
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        % the code
+        %
+        \ExplSyntaxOn
+
+        %%%%%%%%%%%%%%%
+        Let's~prepare~some~variables~and~stuff~first.\newline\\
+        %%%%%%%%%%%%%%%
+
+          % define input stream
+          \ior_new:N \l_fin_ior
+
+          % open file for reading
+          \ior_open:Nn \l_fin_ior {list}
+
+          %% prepare necessary variables
+          % the seq of sums
+          \seq_new:N \l_elves_seq
+          \seq_put_right:Nn \l_elves_seq {0}
+          % elf count
+          \int_new:N \l_elf_count_int
+
+        %%%%%%%%%%%%%%%
+        Now~that~all~is~prepared,~let's~go~over~lines.\newline\\
+        %%%%%%%%%%%%%%%
+
+          % map the stream to a function
+          \ior_map_inline:Nn \l_fin_ior {
+
+            %%%%%%%%%%%%%%%
+            I~went~over~one~line~and~it~was~#1,~which~is~
+            %%%%%%%%%%%%%%%
+
+            \tl_if_eq:nnTF {#1} {}
+              {
+
+                %%%%%%%%%%%%%%%
+                an~empty~line,~
+                %%%%%%%%%%%%%%%
+
+                % if an empty line is found, add a new elf
+                \seq_put_right:Nn \l_elves_seq {0}
+
+                %%%%%%%%%%%%%%%
+                so~I~\textbf{added~a~new~elf}.\newline\\
+                %%%%%%%%%%%%%%%
+              }
+              {
+                %%%%%%%%%%%%%%%
+                a~number,~
+                %%%%%%%%%%%%%%%
+                
+                % if a non-empty line is found, do the number stuff
+
+                % pop the leftmost elf
+                \seq_pop_right:NN \l_elves_seq \l_tmpa_tl
+                % set its calories to an integer
+                \int_set:Nn \l_tmpb_int \l_tmpa_tl
+                % add to it the current calories
+                \int_add:Nn \l_tmpb_int {#1}
+                % return it to the sequence
+                \seq_put_right:NV \l_elves_seq \l_tmpb_int
+
+                %%%%%%%%%%%%%%%
+                so~I~yanked~the~last~elf~from~the~list,~\textbf{added~#1}~to~his~number~and~stuck~him~back~in,~with~a~total~of~\int_use:N \l_tmpb_int.\newline\\
+                %%%%%%%%%%%%%%%
+              }
+            }
+
+        %%%%%%%%%%%%%%%
+        Now~that~all~calories~are~counted,~let's~find~out~which~elf~carries~the~plumpest~bounty~and~how~much~that~is.
+
+      \subsection{Results}\label{results}
+
+      Getting~the~highest~sum~is~easier.~All~we~need~to~do~is~sort~the~elves,~
+      %%%%%%%%%%%%%%%
+
+      \seq_new:N \l_elves_sorted_seq
+      \seq_set_eq:NN \l_elves_sorted_seq \l_elves_seq
+      \seq_sort:Nn \l_elves_sorted_seq
+        {\int_compare:nNnTF 
+          {#1} > {#2}
+          {\sort_return_same:}
+          {\sort_return_swapped:}
+        }
+      
+      %%%%%%%%%%%%%%%
+      which~leaves~us~with~the~top~elf's~bundle~of~snacks~worth~\textbf{\seq_item:Nn \l_elves_sorted_seq {1} ~calories}!
+      %%%%%%%%%%%%%%%
+
+      \ExplSyntaxOff
+      %
+      % 
+      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+      Ah, but by the time we calculated the answer to the Elves' question, they've already realized that the Elf carrying the most Calories of food might eventually run out of snacks.
+
+      To avoid this unacceptable situation, the Elves would instead like to know the total Calories carried by the top three Elves carrying the most Calories. That way, even if one of those Elves runs out of snacks, they still have two backups.
+
+      Fortunately, our calculations are all prepared for this task. We have but to take the top three of the sorted sequence and sum them, which leaves us with\ExplSyntaxOn
+
+        \textbf{~\int_eval:n{\seq_item:Nn \l_elves_sorted_seq {1} + \seq_item:Nn \l_elves_sorted_seq {2} + \seq_item:Nn \l_elves_sorted_seq {3}}~calories}!
+
+      \ExplSyntaxOff
+
+\end{document}
