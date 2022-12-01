@@ -54,26 +54,26 @@
           \ior_map_inline:Nn \l_fin_ior {
 
             %%%%%%%%%%%%%%%
-            I~went~over~one~line~and~it~was~#1,~which~is~
+            % I~went~over~one~line~and~it~was~#1,~which~is~
             %%%%%%%%%%%%%%%
 
             \tl_if_eq:nnTF {#1} {}
               {
 
                 %%%%%%%%%%%%%%%
-                an~empty~line,~
+                % an~empty~line,~
                 %%%%%%%%%%%%%%%
 
                 % if an empty line is found, add a new elf
                 \seq_put_right:Nn \l_elves_seq {0}
 
                 %%%%%%%%%%%%%%%
-                so~I~\textbf{added~a~new~elf}.\newline\\
+                % so~I~\textbf{added~a~new~elf}.\newline\\
                 %%%%%%%%%%%%%%%
               }
               {
                 %%%%%%%%%%%%%%%
-                a~number,~
+                % a~number,~
                 %%%%%%%%%%%%%%%
                 
                 % if a non-empty line is found, do the number stuff
@@ -88,7 +88,7 @@
                 \seq_put_right:NV \l_elves_seq \l_tmpb_int
 
                 %%%%%%%%%%%%%%%
-                so~I~yanked~the~last~elf~from~the~list,~\textbf{added~#1}~to~his~number~and~stuck~him~back~in,~with~a~total~of~\int_use:N \l_tmpb_int.\newline\\
+                % so~I~yanked~the~last~elf~from~the~list,~\textbf{added~#1}~to~his~number~and~stuck~him~back~in,~with~a~total~of~\int_use:N \l_tmpb_int.\newline\\
                 %%%%%%%%%%%%%%%
               }
             }
