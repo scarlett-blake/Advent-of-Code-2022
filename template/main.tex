@@ -5,6 +5,46 @@
 
 \begin{document}
     
-    
+  \section{Day Two, Rock Paper Shotgun}
+
+    \subsection{Predicament}
+
+    \subsection{The code}
+
+      Not too deep under this section, hidden in the background, resides the code which does the counting. After it runs, its results will be shown in section \ref{results}. The following text in this section is textual output of the code as it runs.
+
+      \subsubsection{Code output}
+
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        % the code
+        %
+        \ExplSyntaxOn
+
+        %%%%%%%%%%%%%%%
+        Let's~prepare~some~variables~and~stuff~first.\newline\\
+        %%%%%%%%%%%%%%%
+
+          % define input stream
+          \ior_new:N \l_fin_ior
+
+          % open file for reading
+          \ior_open:Nn \l_fin_ior {list}
+
+          %% prepare necessary variables
+
+
+        %%%%%%%%%%%%%%%
+        Now~that~all~is~prepared,~let's~go~over~lines.\newline\\
+        %%%%%%%%%%%%%%%
+
+          % map the stream to a function
+          \ior_map_inline:Nn \l_fin_ior {}
+
+        \ExplSyntaxOff
+        %
+        % 
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+      \subsection{Results}\label{results}
 
 \end{document}

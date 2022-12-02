@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.8.17)  2 DEC 2022 07:05
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.8.17)  2 DEC 2022 08:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -63,27 +63,60 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
 LaTeX Font Info:    ... okay on input line 6.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
 LaTeX Font Info:    ... okay on input line 6.
-\l_elf_count_int=\count193
+\l_score_total_int=\count193
+\l_score_combo_int=\count194
 
-Underfull \hbox (badness 10000) in paragraph at lines 33--99
+Underfull \hbox (badness 10000) in paragraph at lines 36--118
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 33--99
+Underfull \hbox (badness 10000) in paragraph at lines 36--118
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 36--118
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 36--118
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 36--118
 
  []
 
 [1
 
-] [2] (./main.aux) ) 
+]
+\l_score_choice_int=\count195
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--203
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--203
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--203
+
+ []
+
+[2] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 557 strings out of 475856
- 12317 string characters out of 5795618
- 323702 words of memory out of 5000000
- 21697 multiletter control sequences out of 15000+600000
+ 558 strings out of 475856
+ 12337 string characters out of 5795618
+ 324702 words of memory out of 5000000
+ 21698 multiletter control sequences out of 15000+600000
  469307 words of font info for 34 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 43i,6n,49p,358b,272s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 43i,5n,49p,405b,109s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.xdv (2 pages, 24884 bytes).
+Output written on main.xdv (2 pages, 30432 bytes).

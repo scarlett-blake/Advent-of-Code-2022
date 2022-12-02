@@ -1,0 +1,206 @@
+\documentclass[]{article}
+
+\usepackage[]{expl3}
+\usepackage[]{xparse}
+
+\begin{document}
+    
+  \section{Day Two, Rock Paper Shotgun}
+
+    \subsection{Predicament}
+
+    The Elves begin to set up camp on the beach. To decide whose tent gets to be closest to the snack storage, a giant Rock Paper Shotgun tournament is already in progress.
+
+    Rock Paper Shotgun is a game between two players. Each game contains many rounds; in each round, the players each simultaneously choose one of Rock, Paper, or Shotgun using a hand shape. Then, a winner for that round is selected: Rock defeats Shotgun, Shotgun defeats Paper, and Paper defeats Rock. If both players choose the same shape, the round instead ends in a draw.
+    
+    Appreciative of our help yesterday, one Elf gives us an encrypted strategy guide that they say will be sure to help us win. "The first column is what our opponent is going to play: A for Rock, B for Paper, and C for Shotgun. The second column--" Suddenly, the Elf is called away to help with someone's tent.
+    
+    The second column, we reason, must be what we should play in response: X for Rock, Y for Paper, and Z for Shotgun. Winning every time would be suspicious, so the responses must have been carefully chosen.
+    
+    The winner of the whole tournament is the player with the highest score. Our total score is the sum of our scores for each round. The score for a single round is the score for the shape we selected (1 for Rock, 2 for Paper, and 3 for Shotgun) plus the score for the outcome of the round (0 if we lost, 3 if the round was a draw, and 6 if we won).
+    
+    Since we can't be sure if the Elf is trying to help us or trick us, we should calculate the score we would get if we were to follow the strategy guide.
+
+    \subsection{The code}
+
+      Not too deep under this section, hidden in the background, resides the code which does the counting. After it runs, its results will be shown in section \ref{results}. The following text in this section is textual output of the code as it runs.
+
+      \subsubsection{Code output}
+
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        % the code
+        %
+        \ExplSyntaxOn
+
+        %%%%%%%%%%%%%%%
+        Let's~prepare~some~variables~and~stuff~first.\newline\\
+        %%%%%%%%%%%%%%%
+
+          % define input stream
+          \ior_new:N \l_fin_ior
+
+          % open file for reading
+          \ior_open:Nn \l_fin_ior {list}
+
+          For~example,~a~dictionary~to~translate~between~choices~and~points.~At~one~point~we~considered~setting~up~a~dictionary~for~combinations~and~points~directly,~but~that~would~have~been~more~coding.\newline\\
+
+          %% prepare necessary variables
+          % score dictionary
+          \prop_new:N \l_score_prop
+          \prop_set_from_keyval:Nn \l_score_prop
+          {
+            X=1,
+            Y=2,
+            Z=3,
+            A=1,
+            B=2,
+            C=3
+          }
+
+          \int_new:N \l_score_total_int
+          \int_new:N \l_score_combo_int
+
+        %%%%%%%%%%%%%%%
+        Now~that~all~is~prepared,~let's~go~over~lines.\newline\\
+        %%%%%%%%%%%%%%%
+
+          % map the stream to a function
+          \ior_map_inline:Nn \l_fin_ior {
+
+            % clear the temp sequence and integers
+            \seq_clear:N \l_tmpa_seq
+
+            % get the choice values into integers
+            \seq_set_split:Nnn \l_tmpa_seq { } {#1}
+
+            % first column
+            \tl_set:Nx \l_tmpa_tl {\seq_item:Nn \l_tmpa_seq {1}}
+            \prop_get:NVN \l_score_prop \l_tmpa_tl \l_tmpb_tl
+            \int_set:Nn \l_tmpa_int {\l_tmpb_tl}
+
+            % second column
+            \tl_set:Nx \l_tmpa_tl {\seq_item:Nn \l_tmpa_seq {2}}
+            \prop_get:NVN \l_score_prop \l_tmpa_tl \l_tmpb_tl
+            \int_set:Nn \l_tmpb_int {\l_tmpb_tl}
+
+            % calculate combination score
+            \int_case:nn
+              {0}
+              {
+                % if draw
+                {\l_tmpa_int - \l_tmpb_int}
+                {\int_set:Nn \l_score_combo_int {3}}
+
+                % if defeat
+                {\l_tmpa_int - \l_tmpb_int + 2}
+                {\int_set:Nn \l_score_combo_int {0}}
+                {\l_tmpa_int - \l_tmpb_int - 1}
+                {\int_set:Nn \l_score_combo_int {0}}
+
+                % if victory
+                {\l_tmpa_int - \l_tmpb_int - 2}
+                {\int_set:Nn \l_score_combo_int {6}}
+                {\l_tmpa_int - \l_tmpb_int + 1}
+                {\int_set:Nn \l_score_combo_int {6}}
+              }
+
+            % add to the total score
+            \int_add:Nn \l_score_total_int
+              {\l_tmpb_int + \l_score_combo_int}
+          }
+
+        And~now~that~we~have~the~score~counted,~we~get~ \textbf{\int_use:N \l_score_total_int} .\newline\\
+
+        \ExplSyntaxOff
+        %
+        % 
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \paragraph{Oh the Elves!}
+
+        The Elf finishes helping with the tent and sneaks back over to you. "Anyway, the second column says how the round needs to end: X means you need to lose, Y means you need to end the round in a draw, and Z means you need to win. Good luck!". The total score is still calculated in the same way.
+
+        Silly Elves! Well, let's make use of the old code again. We'll clear the total score variable and copy and paste the rest.
+
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        % the code
+        %
+        \ExplSyntaxOn
+
+        %%%%%%%%%%%%%%%
+        Let's~prepare~some~variables~and~stuff~first.\newline\\
+        %%%%%%%%%%%%%%%
+
+          \ior_open:Nn \l_fin_ior {list}
+
+          We'll~have~to~re-do~the~score~dictionary~and~change~the~counting~code.~Now~we~need~to~calculate~the~choice~score~from~the~two~columns,~instead~of~just~comparing~them.\newline\\
+          %% prepare necessary variables
+          % score dictionary
+          \prop_set_from_keyval:Nn \l_score_prop
+          {
+            X=0,
+            Y=3,
+            Z=6,
+            A=1,
+            B=2,
+            C=3
+          }
+
+          \int_set:Nn \l_score_total_int {0}
+          \int_new:N \l_score_choice_int
+
+        %%%%%%%%%%%%%%%
+        Now~that~all~is~prepared,~let's~go~over~lines.\newline\\
+        %%%%%%%%%%%%%%%
+
+          % map the stream to a function
+          \ior_map_inline:Nn \l_fin_ior {
+
+            % clear the temp sequence and integers
+            \seq_clear:N \l_tmpa_seq
+
+            % get the choice values into integers
+            \seq_set_split:Nnn \l_tmpa_seq { } {#1}
+
+            % first column
+            \tl_set:Nx \l_tmpa_tl {\seq_item:Nn \l_tmpa_seq {1}}
+            \prop_get:NVN \l_score_prop \l_tmpa_tl \l_tmpb_tl
+            \int_set:Nn \l_tmpa_int {\l_tmpb_tl}
+
+            % second column
+            \tl_set:Nx \l_tmpa_tl {\seq_item:Nn \l_tmpa_seq {2}}
+            \prop_get:NVN \l_score_prop \l_tmpa_tl \l_tmpb_tl
+            \int_set:Nn \l_tmpb_int {\l_tmpb_tl}
+
+            % calculate which sign to use
+            \int_case:nn
+              % if the sum of their choice and needed 
+              {\l_tmpa_int + \l_tmpb_int}
+              {
+                {1} {\int_set:Nn \l_score_choice_int {3}}
+                {4} {\int_set:Nn \l_score_choice_int {1}}
+                {7} {\int_set:Nn \l_score_choice_int {2}}
+                {2} {\int_set:Nn \l_score_choice_int {1}}
+                {5} {\int_set:Nn \l_score_choice_int {2}}
+                {8} {\int_set:Nn \l_score_choice_int {3}}
+                {3} {\int_set:Nn \l_score_choice_int {2}}
+                {6} {\int_set:Nn \l_score_choice_int {3}}
+                {9} {\int_set:Nn \l_score_choice_int {1}}
+              }
+
+            % \int_show:N \l_score_choice_int
+
+            % add to the total score
+            \int_add:Nn \l_score_total_int
+              {\l_tmpb_int + \l_score_choice_int}
+          }
+
+        And~now~that~we~have~the~score~counted,~we~get~ \textbf{\int_use:N \l_score_total_int} .
+
+        \ExplSyntaxOff
+        %
+        % 
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+      \subsection{Results}\label{results}
+
+\end{document}
