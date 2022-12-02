@@ -1,9 +1,9 @@
 # Fdb version 3
-["xdvipdfmx"] 1669964680 "main.xdv" "main.pdf" "main" 1669964680
-  "main.xdv" 1669964680 30432 bf7fe1dd931b81fcbed0e07343ae207a "xelatex"
+["xdvipdfmx"] 1669964808 "main.xdv" "main.pdf" "main" 1669964808
+  "main.xdv" 1669964808 29744 4af6ebdbd7416be23360a9b9cb6f5de6 "xelatex"
   (generated)
   "main.pdf"
-["xelatex"] 1669964680 "main.tex" "main.xdv" "main" 1669964680
+["xelatex"] 1669964808 "main.tex" "main.xdv" "main" 1669964808
   "/home/blake/.local/share/texlive/2022/texmf-dist/tex/latex/base/article.cls" 1654720880 20144 7555b7429d80bef287ebb82117811acc ""
   "/home/blake/.local/share/texlive/2022/texmf-dist/tex/latex/base/size10.clo" 1654720880 8448 e0391042ca0932ede1098ae14ada60ba ""
   "/home/blake/.local/share/texlive/2022/texmf-dist/tex/latex/base/ts1cmr.fd" 1654720880 2430 c6a3607a0ca42997f8ce16be1678d411 ""
@@ -15,8 +15,8 @@
   "/home/blake/.local/share/texlive/2022/texmf-var/web2c/xetex/xelatex.fmt" 1660725229 5463098 3c3549002ed3953a1de100c1c8712c9a ""
   "/home/blake/.local/share/texlive/2022/texmf.cnf" 1657814516 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
   "list" 1669964679 9999 6c8e9e04088b50719f5c3b83ec405762 ""
-  "main.aux" 1669964680 678 b290066102fa0aa6383311dfa3fa0919 "xelatex"
-  "main.tex" 1669964672 8141 83792a58f15e484b2d7657adcf180b55 ""
+  "main.aux" 1669964808 549 a185365dce3be96056080f25dc50fd10 "xelatex"
+  "main.tex" 1669964806 8031 228665b048af62368b4b54152c711437 ""
   (generated)
   "main.aux"
   "main.log"
