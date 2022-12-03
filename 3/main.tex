@@ -1,0 +1,131 @@
+\documentclass[]{article}
+
+\usepackage[]{expl3}
+\usepackage[]{xparse}
+
+\begin{document}
+    
+  \section{Day Three, Rucksak Reorganization}
+
+    \subsection{Predicament}
+
+    One Elf has the important job of loading all of the rucksacks with supplies for the jungle journey. Unfortunately, that Elf didn't quite follow the packing instructions, and so a few items now need to be rearranged.
+
+    Each rucksack has two large compartments. All items of a given type are meant to go into exactly one of the two compartments. The Elf that did the packing failed to follow this rule for exactly one item type per rucksack.
+    
+    The Elves have made a list of all of the items currently in each rucksack, but they need our help finding the errors. Every item type is identified by a single lowercase or uppercase letter (that is, a and A refer to different types of items).
+
+    The list of items for each rucksack is given as characters all on a single line. A given rucksack always has the same number of items in each of its two compartments, so the first half of the characters represent items in the first compartment, while the second half of the characters represent items in the second compartment.
+    
+    To help prioritize item rearrangement, every item type can be converted to a priority:
+
+    \begin{itemize}
+      \item lowercase item types a through z have priorities 1 through 26,
+      \item uppercase item types A through Z have priorities 27 through 52.
+    \end{itemize}
+
+    We must find the item type that appears in both compartments of each rucksack. What is the sum of the priorities of those item types?
+
+    \subsection{The code}
+
+      Not too deep under this section, hidden in the background, resides the code which does the counting. The following text in this section is textual output of the code as it runs.
+
+      \subsubsection{Code output}
+
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        % the code
+        %
+        \ExplSyntaxOn
+
+        %%%%%%%%%%%%%%%
+        Let's~prepare~some~variables~and~stuff~first.\newline\\
+        %%%%%%%%%%%%%%%
+
+          % define input stream
+          \ior_new:N \l_fin_ior
+
+          % open file for reading
+          \ior_open:Nn \l_fin_ior {list}
+
+          %% prepare necessary variables
+          % priority dictionary
+          \prop_new:N \l_priorities_prop
+
+          We'll~set~numerical~priority~values~for~each~item,~using~the~catcodes~of~their~assigned~characters.~Thank~you,~\LaTeX!\newline\\
+
+          \tl_analysis_map_inline:nn {abcdefghijklmnopqrstuvwxyz}
+            {
+              \prop_put:Nxx \l_priorities_prop
+                {#1}
+                {\int_eval:n {#2 - 96}}
+            }
+
+          \tl_analysis_map_inline:nn {ABCDEFGHIJKLMNOPQRSTUVWXYZ}
+            {
+              \prop_put:Nxx \l_priorities_prop
+                {#1}
+                {\int_eval:n {#2 - 38}}
+            }
+
+          \seq_new:N \l_common_seq
+          \seq_new:N \l_common_temp_seq
+          \int_new:N \l_total_int
+
+        %%%%%%%%%%%%%%%
+        Now~that~all~is~prepared,~let's~go~over~lines.\newline\\
+        %%%%%%%%%%%%%%%
+
+          % map the stream to a function
+          \ior_map_inline:Nn \l_fin_ior {
+
+            % clear temp sequences
+            \seq_clear:N \l_tmpa_seq
+            \seq_clear:N \l_tmpb_seq
+            \seq_clear:N \l_common_temp_seq
+
+            % get the number by which we'll split the line
+            \int_set:Nn \l_tmpa_int {\tl_count:n {#1}}
+            
+            % load the line into a sequence
+            \seq_set_split:Nnn \l_tmpa_seq {} {#1}
+
+            % do half a string length times
+            \int_step_inline:nn {\l_tmpa_int / 2}
+              {
+                % pop an entry and put it to another sequence
+                \seq_pop_right:NN \l_tmpa_seq \l_tmpa_tl
+                \seq_put_right:NV \l_tmpb_seq \l_tmpa_tl
+              }
+
+            % check which ones are common
+            \seq_map_variable:NNn \l_tmpa_seq \l_tmpa_tl
+              {
+                \seq_map_variable:NNn \l_tmpb_seq \l_tmpb_tl
+                  {
+                    \tl_if_eq:NNT \l_tmpa_tl \l_tmpb_tl
+                      {
+                        \seq_put_right:NV \l_common_temp_seq \l_tmpa_tl
+                      }
+                  }
+              }
+            
+            \seq_remove_duplicates:N \l_common_temp_seq
+            \seq_concat:NNN \l_common_seq \l_common_seq \l_common_temp_seq
+          }
+
+          % count the value using the dictionary
+          \seq_map_variable:NNn \l_common_seq \l_tmpa_tl
+          {
+            \prop_get:NVN \l_priorities_prop \l_tmpa_tl \l_tmpb_tl
+            % \tl_show:N \l_tmpb_tl
+            \int_add:Nn \l_total_int {\l_tmpb_tl}
+          }
+
+          We~went~and~did~stuff~and~then~counted~stuff.~We~counted~up~to~ \textbf{\int_use:N \l_total_int }.
+
+        \ExplSyntaxOff
+        %
+        % 
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
